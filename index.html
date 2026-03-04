@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Internet Museum of Forgotten Ideas</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Ambient particle canvas -->
+  <canvas id="dust-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav class="museum-nav">
+    <span class="nav-logo">IMFI</span>
+    <span class="nav-tagline">Est. 2024 · Gallery Open</span>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       LANDING
+  ═══════════════════════════════════════════ -->
+  <section class="landing" id="landing">
+    <div class="landing-inner">
+      <p class="landing-overline">Welcome to</p>
+      <h1 class="landing-title">The Internet Museum<br>of Forgotten Ideas</h1>
+      <p class="landing-subtitle">A collection of inventions that almost existed.</p>
+      <button class="enter-btn" onclick="scrollToGallery()">
+        <span>Enter the gallery</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+      </button>
+    </div>
+    <div class="landing-ornament">
+      <div class="ornament-ring ring-1"></div>
+      <div class="ornament-ring ring-2"></div>
+      <div class="ornament-ring ring-3"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       GALLERY LABEL
+  ═══════════════════════════════════════════ -->
+  <div class="gallery-divider reveal" id="gallery-start">
+    <span>— Permanent Collection —</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       EXHIBIT 1: EMOTION TRANSLATOR
+  ═══════════════════════════════════════════ -->
+  <section class="exhibit reveal" id="exhibit-1" data-exhibit="1">
+    <div class="exhibit-number">01</div>
+    <div class="exhibit-content">
+      <div class="exhibit-plaque">
+        <p class="plaque-category">Sensory Apparatus</p>
+        <h2 class="exhibit-title">The Emotion Translator</h2>
+        <div class="plaque-meta">
+          <span>Dr. Liesel Vanthorpe</span>
+          <span class="dot">·</span>
+          <span>1974</span>
+        </div>
+        <p class="exhibit-description">
+          A device proposed to render emotional states as visible color spectra. Dr. Vanthorpe believed 
+          that every human feeling vibrated at a precise chromatic frequency. The prototype was dismantled 
+          after her lab lost funding. The colors, she said, were beautiful beyond imagination.
+        </p>
+        <div class="exhibit-instruction">
+          <span class="instruction-icon">↓</span>
+          Type a feeling below — and watch it translate.
+        </div>
+      </div>
+
+      <div class="exhibit-interaction" id="emotion-interaction">
+        <div class="emotion-display" id="emotion-display">
+          <div class="emotion-color-wash" id="emotion-wash"></div>
+          <div class="emotion-word" id="emotion-word">...</div>
+        </div>
+        <div class="emotion-input-row">
+          <input 
+            type="text" 
+            class="museum-input" 
+            id="emotion-input" 
+            placeholder="Describe how you feel right now…"
+            maxlength="80"
+          />
+        </div>
+        <div class="emotion-legend" id="emotion-legend"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       EXHIBIT 2: DREAM RECORDER
+  ═══════════════════════════════════════════ -->
+  <section class="exhibit reveal" id="exhibit-2" data-exhibit="2">
+    <div class="exhibit-number">02</div>
+    <div class="exhibit-content exhibit-content--reversed">
+      <div class="exhibit-plaque">
+        <p class="plaque-category">Oneiric Technology</p>
+        <h2 class="exhibit-title">The Dream Recorder</h2>
+        <div class="plaque-meta">
+          <span>Prof. Augusto Neri</span>
+          <span class="dot">·</span>
+          <span>1991</span>
+        </div>
+        <p class="exhibit-description">
+          A helmet-mounted device intended to capture the imagery of REM sleep onto photographic film. 
+          Prof. Neri claimed his prototype recorded seventeen dreams before the mechanism jammed. 
+          The developed photographs, he wrote in his final journal, "showed things I had never seen 
+          while awake."
+        </p>
+        <div class="exhibit-instruction">
+          <span class="instruction-icon">↓</span>
+          Press the button to recall a dream.
+        </div>
+      </div>
+
+      <div class="exhibit-interaction" id="dream-interaction">
+        <div class="dream-stage" id="dream-stage">
+          <div class="dream-shapes-container" id="dream-shapes"></div>
+          <div class="dream-idle-text" id="dream-idle">close your eyes<br>and press below</div>
+        </div>
+        <button class="museum-btn" id="dream-btn">
+          ◉ &nbsp;Record Dream
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       EXHIBIT 3: GRAVITY SHOES
+  ═══════════════════════════════════════════ -->
+  <section class="exhibit reveal" id="exhibit-3" data-exhibit="3">
+    <div class="exhibit-number">03</div>
+    <div class="exhibit-content">
+      <div class="exhibit-plaque">
+        <p class="plaque-category">Locomotion Engineering</p>
+        <h2 class="exhibit-title">Gravity Shoes</h2>
+        <div class="plaque-meta">
+          <span>Henryk Szymański</span>
+          <span class="dot">·</span>
+          <span>1962</span>
+        </div>
+        <p class="exhibit-description">
+          Designed for navigating all surfaces — floors, walls, and ceilings alike. The mechanism 
+          relied on a localized gravitational inversion field generated through magnetized sole plates. 
+          Szymański wore a prototype pair at a Warsaw demonstration and walked confidently across 
+          a ceiling for eleven seconds before the field destabilized.
+        </p>
+        <div class="exhibit-instruction">
+          <span class="instruction-icon">↓</span>
+          Click to invert gravity.
+        </div>
+      </div>
+
+      <div class="exhibit-interaction" id="gravity-interaction">
+        <div class="gravity-visual" id="gravity-visual">
+          <div class="gravity-figure" id="gravity-figure">
+            <div class="gfig-body"></div>
+            <div class="gfig-shoes">
+              <div class="gfig-shoe left"></div>
+              <div class="gfig-shoe right"></div>
+            </div>
+          </div>
+          <div class="gravity-surface" id="gravity-surface"></div>
+          <div class="gravity-label" id="gravity-label">FLOOR</div>
+        </div>
+        <button class="museum-btn" id="gravity-btn">
+          ⟳ &nbsp;Invert Gravity
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       EXHIBIT 4: WEATHER COMPOSER
+  ═══════════════════════════════════════════ -->
+  <section class="exhibit reveal" id="exhibit-4" data-exhibit="4">
+    <div class="exhibit-number">04</div>
+    <div class="exhibit-content exhibit-content--reversed">
+      <div class="exhibit-plaque">
+        <p class="plaque-category">Meteorological Instrument</p>
+        <h2 class="exhibit-title">The Weather Composer</h2>
+        <div class="plaque-meta">
+          <span>Mira Holström</span>
+          <span class="dot">·</span>
+          <span>1983</span>
+        </div>
+        <p class="exhibit-description">
+          An instrument Holström called "a piano for the sky." Each key, when pressed, would release 
+          targeted acoustic frequencies into the atmosphere, altering humidity and barometric pressure 
+          in a 30-kilometer radius. The patent application included a full meteorological score 
+          for a thunderstorm in B minor.
+        </p>
+        <div class="exhibit-instruction">
+          <span class="instruction-icon">↓</span>
+          Play the keys to compose the weather.
+        </div>
+      </div>
+
+      <div class="exhibit-interaction" id="weather-interaction">
+        <div class="weather-stage" id="weather-stage">
+          <div class="weather-sky" id="weather-sky">
+            <div class="clouds-container" id="clouds-container"></div>
+            <div class="rain-container" id="rain-container"></div>
+            <div class="sun-orb" id="sun-orb"></div>
+          </div>
+        </div>
+        <div class="weather-keys" id="weather-keys">
+          <button class="wkey" data-type="cloud" data-note="C">☁</button>
+          <button class="wkey" data-type="rain" data-note="D">🌧</button>
+          <button class="wkey" data-type="storm" data-note="E">⚡</button>
+          <button class="wkey" data-type="sun" data-note="F">☀</button>
+          <button class="wkey" data-type="wind" data-note="G">〜</button>
+          <button class="wkey" data-type="snow" data-note="A">❄</button>
+          <button class="wkey" data-type="fog" data-note="B">≋</button>
+        </div>
+        <div class="weather-status" id="weather-status">Atmosphere: calm</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       EXHIBIT 5: MEMORY LIBRARY
+  ═══════════════════════════════════════════ -->
+  <section class="exhibit reveal" id="exhibit-5" data-exhibit="5">
+    <div class="exhibit-number">05</div>
+    <div class="exhibit-content">
+      <div class="exhibit-plaque">
+        <p class="plaque-category">Archival System</p>
+        <h2 class="exhibit-title">The Memory Library</h2>
+        <div class="plaque-meta">
+          <span>Collective, Unnamed</span>
+          <span class="dot">·</span>
+          <span>2004</span>
+        </div>
+        <p class="exhibit-description">
+          A distributed archive where human memories — not data, but the felt experience of memory — 
+          could be uploaded and shared. The system was abandoned when its founders realized they could 
+          not agree on what, precisely, a memory was. These fragments are all that remain of their 
+          early archive.
+        </p>
+        <div class="exhibit-instruction">
+          <span class="instruction-icon">↓</span>
+          Hover over the cards to surface a memory.
+        </div>
+      </div>
+
+      <div class="exhibit-interaction" id="memory-interaction">
+        <div class="memory-grid" id="memory-grid">
+          <!-- Cards injected by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       EXHIBIT 6: CLOUD CITY BLUEPRINT
+  ═══════════════════════════════════════════ -->
+  <section class="exhibit reveal" id="exhibit-6" data-exhibit="6">
+    <div class="exhibit-number">06</div>
+    <div class="exhibit-content exhibit-content--reversed">
+      <div class="exhibit-plaque">
+        <p class="plaque-category">Utopian Architecture</p>
+        <h2 class="exhibit-title">Cloud City Blueprint</h2>
+        <div class="plaque-meta">
+          <span>Élise Fontaine-Duval</span>
+          <span class="dot">·</span>
+          <span>1928</span>
+        </div>
+        <p class="exhibit-description">
+          Fontaine-Duval drafted complete architectural plans for a city of 40,000 inhabitants 
+          suspended at 3,000 meters above sea level by a lattice of helium-filled copper armatures. 
+          The blueprints were rejected by seven nations. She spent the rest of her life adding 
+          more floors.
+        </p>
+        <div class="exhibit-instruction">
+          <span class="instruction-icon">↓</span>
+          Watch the city rise.
+        </div>
+      </div>
+
+      <div class="exhibit-interaction" id="city-interaction">
+        <div class="cloud-city-stage" id="city-stage">
+          <div class="city-sky-bg"></div>
+          <div class="city-buildings" id="city-buildings">
+            <!-- Buildings injected by JS -->
+          </div>
+          <div class="city-clouds-bg" id="city-clouds-bg"></div>
+        </div>
+        <button class="museum-btn" id="city-btn">
+          ↑ &nbsp;Launch the City
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       EXHIBIT 7: YOUR IDEA
+  ═══════════════════════════════════════════ -->
+  <section class="exhibit exhibit--final reveal" id="exhibit-7">
+    <div class="exhibit-number">07</div>
+    <div class="exhibit-content exhibit-content--centered">
+      <div class="exhibit-plaque exhibit-plaque--centered">
+        <p class="plaque-category">Open Collection</p>
+        <h2 class="exhibit-title">Your Idea</h2>
+        <p class="exhibit-description exhibit-description--centered">
+          Every forgotten invention once began as a thought in someone's mind.<br>
+          This pedestal is empty — and waiting.
+        </p>
+      </div>
+
+      <div class="exhibit-interaction interaction--centered" id="idea-interaction">
+        <div class="pedestal-container">
+          <div class="pedestal" id="pedestal">
+            <div class="pedestal-top" id="pedestal-top">
+              <div class="pedestal-artifact" id="pedestal-artifact">
+                <span id="artifact-text"></span>
+              </div>
+            </div>
+            <div class="pedestal-base"></div>
+          </div>
+        </div>
+
+        <div class="idea-form" id="idea-form">
+          <input 
+            type="text" 
+            class="museum-input museum-input--wide" 
+            id="idea-input" 
+            placeholder="Name your forgotten invention…"
+            maxlength="60"
+          />
+          <button class="museum-btn" id="idea-submit">
+            ◈ &nbsp;Place in the Museum
+          </button>
+        </div>
+        <div class="idea-placed-msg" id="idea-placed-msg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="museum-footer reveal">
+    <div class="footer-inner">
+      <div class="footer-line"></div>
+      <p class="footer-quote">
+        "Not every idea needs to exist.<br>But every idea deserves to be imagined."
+      </p>
+      <div class="footer-meta">
+        <span>The Internet Museum of Forgotten Ideas</span>
+        <span class="dot">·</span>
+        <span>Permanent Collection</span>
+        <span class="dot">·</span>
+        <span>Admission Free</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
